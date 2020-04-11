@@ -48,3 +48,6 @@ nmcli connection modify eno1 +ipv4.routes "10.20.20.20 10.10.10.1 table=100"
 nmcli connection modify eno1 ipv4.routing-rules "priority 1 from 10.10.10.10/32 table 100"
 nmcli connection modify eno1 +ipv4.routing-rules "priority 1 to 10.20.20.20/32 table 100"
 ```
+
+# `networking`
+
