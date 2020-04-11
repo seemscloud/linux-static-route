@@ -51,3 +51,39 @@ nmcli connection modify eno1 +ipv4.routing-rules "priority 1 to 10.20.20.20/32 t
 
 # `networking`
 
+```bash
+up route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.1.1
+up route add -net 172.16.0.0 netmask 255.240.0.0 gw 192.168.1.1
+```
+
+
+# `netplan`
+```yml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens3:
+      addresses:
+       - 192.168.3.30/24
+      dhcp4: no
+      routes:
+       - to: 192.168.3.0/24
+         via: 192.168.3.1
+         table: 101
+      routing-policy:
+       - from: 192.168.3.0/24
+         table: 101
+    ens5:
+      addresses:
+       - 192.168.5.24/24
+      dhcp4: no
+      gateway4: 192.168.5.1
+      routes:
+       - to: 192.168.5.0/24
+         via: 192.168.5.1
+         table: 102
+      routing-policy:
+        - from: 192.168.5.0/24
+          table: 102
+```
